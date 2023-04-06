@@ -144,15 +144,10 @@ def calc_head_curv_an(coeffs_x: np.ndarray,
     return psi, kappa
 
 def calc_ax_profile(vx_profile: np.ndarray,
-                    el_lengths: np.ndarray,
-                    eq_length_output: bool = False) -> np.ndarray:
+                    el_lengths: np.ndarray) -> np.ndarray:
  
-     # calculate longitudinal acceleration profile array numerically: (v_end^2 - v_beg^2) / 2*s
-    if eq_length_output:
-        ax_profile = np.zeros(vx_profile.size)
-        ax_profile[:-1] = (np.power(vx_profile[1:], 2) - np.power(vx_profile[:-1], 2)) / (2 * el_lengths)
-    else:
-        ax_profile = (np.power(vx_profile[1:], 2) - np.power(vx_profile[:-1], 2)) / (2 * el_lengths)
+    # calculate longitudinal acceleration profile array numerically: (v_end^2 - v_beg^2) / 2*s
+    ax_profile = (np.power(vx_profile[1:], 2) - np.power(vx_profile[:-1], 2)) / (2 * el_lengths)
 
     return ax_profile
 

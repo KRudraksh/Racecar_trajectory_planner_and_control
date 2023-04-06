@@ -40,12 +40,6 @@ file_paths["track_file"] = os.path.join(file_paths["module"], "inputs", "tracks"
 file_paths["tpamap"] = os.path.join(file_paths["module"], "inputs", "frictionmaps",
                                     file_paths["track_name"] + "_tpamap.csv")
 
-# create outputs folder(s)
-os.makedirs(file_paths["module"] + "/outputs", exist_ok=True)
-
-# assemble export paths
-file_paths["traj_race_export"] = os.path.join(file_paths["module"], "outputs", "traj_race_cl.csv")
-
 
 ##################### VEHICLE PARAMS ###########################
 
@@ -53,8 +47,6 @@ file_paths["traj_race_export"] = os.path.join(file_paths["module"], "outputs", "
 parser = configparser.ConfigParser()
 pars = {}
 
-if not parser.read(os.path.join(file_paths["module"], "params", file_paths["veh_params_file"])):
-    raise ValueError('Specified config file does not exist or is empty!')
 
 pars["ggv_file"] = json.loads(parser.get('GENERAL_OPTIONS', 'ggv_file'))
 pars["ax_max_machines_file"] = json.loads(parser.get('GENERAL_OPTIONS', 'ax_max_machines_file'))
@@ -154,9 +146,7 @@ vx_profile_opt = calc_vel_profile(ggv=ggv,
 
 # calculate longitudinal acceleration profile
 vx_profile_opt_cl = np.append(vx_profile_opt, vx_profile_opt[0])
-ax_profile_opt = calc_ax_profile(vx_profile=vx_profile_opt_cl,
-                                                     el_lengths=el_lengths_opt_interp,
-                                                     eq_length_output=False)
+ax_profile_opt = calc_ax_profile(vx_profile=vx_profile_opt_cl, el_lengths=el_lengths_opt_interp)
 
 # calculate laptime
 t_profile_cl = calc_t_profile(vx_profile=vx_profile_opt,
