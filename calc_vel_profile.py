@@ -18,11 +18,6 @@ def calc_vel_profile(ax_max_machines: np.ndarray,
                      v_end: float = None,
                      filt_window: int = None) -> np.ndarray:
     """
-    author:
-    Alexander Heilmeier
-
-    modified by:
-    Tim Stahl
 
     .. description::
     Calculates a velocity profile using the tire and motor limits as good as possible.
